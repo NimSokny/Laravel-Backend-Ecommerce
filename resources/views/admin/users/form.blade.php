@@ -78,12 +78,7 @@
                     name="profile_image"
                     class="mt-2 min-h-11 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700/15 @error('profile_image') border-rose-500 focus:border-rose-500 focus:ring-rose-500/15 @enderror"
                     accept="image/*"
-                    onchange="previewImage(event)"
                 >
-                <div id="imagePreview" class="mt-3 hidden">
-                    <img id="previewImg" src="" alt="Profile Image Preview" class="size-32 rounded-full object-cover border border-slate-200">
-                    <p class="mt-1 text-xs text-slate-500">Preview</p>
-                </div>
                 @if (isset($user) && $user->profile_image)
                     <div class="mt-3">
                         <img src="{{ asset('storage/' . $user->profile_image) }}" alt="{{ $user->name }}" class="size-24 rounded-full object-cover border border-slate-200">
@@ -149,22 +144,3 @@
         </div>
     </form>
 </div>
-
-<script>
-function previewImage(event) {
-    const file = event.target.files[0];
-    const preview = document.getElementById('imagePreview');
-    const previewImg = document.getElementById('previewImg');
-
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            previewImg.src = e.target.result;
-            preview.classList.remove('hidden');
-        }
-        reader.readAsDataURL(file);
-    } else {
-        preview.classList.add('hidden');
-    }
-}
-</script>
